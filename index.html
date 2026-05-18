@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>VoiceAgents — Templates & Editor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+  <!-- ============================================================ Sidebar -->
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="mark">CT</div>
+      <div class="wordmark">CLOUDTALK</div>
+    </div>
+    <nav>
+      <button class="nav-item"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg></span>Dashboard</button>
+      <button class="nav-item"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>Call Monitor</button>
+      <button class="nav-item"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg></span>Analytics</button>
+      <div class="nav-section">Company</div>
+      <button class="nav-item"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg></span>Users</button>
+      <button class="nav-item"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="8" r="3"/><path d="M2 21c0-3 3-5 7-5s7 2 7 5"/></svg></span>Groups</button>
+      <button class="nav-item"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v16H4z"/><path d="M4 8h16M9 4v16"/></svg></span>Contacts</button>
+      <button class="nav-item"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></span>Numbers</button>
+      <div class="nav-section">Integrations</div>
+      <button class="nav-item active"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></span>VoiceAgents <span class="chev">›</span></button>
+      <button class="nav-item"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="8" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="16" cy="12" r="1"/></svg></span>Dialer</button>
+    </nav>
+    <div class="bottom">
+      <button class="nav-item"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>Help</button>
+      <button class="nav-item"><span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>Account</button>
+    </div>
+  </aside>
+
+  <!-- ============================================================ Main -->
+  <main class="main">
+    <header class="topbar">
+      <div class="crumb">
+        <a href="#" onclick="showList();return false">VoiceAgents</a>
+        <span class="sep" id="crumbSep" style="display:none">/</span>
+        <span class="leaf" id="crumbLeaf"></span>
+      </div>
+      <div class="top-right">
+        <span class="pill-promo"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 8.5 22 9.3 17 14 18.2 21 12 17.8 5.8 21 7 14 2 9.3 9 8.5"/></svg> Get 125$</span>
+        <span class="credit-amt">€0.00</span>
+        <div class="avatar">A</div>
+      </div>
+    </header>
+
+    <div class="content">
+
+      <!-- =================== List view (Agents) =================== -->
+      <section id="viewList" class="view active">
+        <div class="surface list-wrap">
+          <div class="surface-header">
+            <h2>VoiceAgents</h2>
+            <button class="btn-primary" onclick="showTemplates()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              New VoiceAgent
+            </button>
+          </div>
+          <div class="filters">
+            <div class="seg" id="dirFilter">
+              <button class="active" data-dir="all">All</button>
+              <button data-dir="inbound">Inbound</button>
+              <button data-dir="outbound">Outbound</button>
+            </div>
+            <label class="search">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-quaternary)"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input id="listSearch" placeholder="Search" />
+            </label>
+          </div>
+          <div class="table-area">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Status</th>
+                  <th>Jobs</th>
+                  <th class="num"># of calls (past 30 days)</th>
+                  <th class="num">Average call duration</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="agentsBody"></tbody>
+            </table>
+          </div>
+          <div class="table-footer">
+            <div>50 VoiceAgents</div>
+            <div class="pager">
+              <span class="lbl">Current page</span>
+              <input class="page-input" value="1" />
+              <span class="lbl">of 2</span>
+              <button class="nav-btn" disabled><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="15 18 9 12 15 6"/></svg></button>
+              <button class="nav-btn"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="9 18 15 12 9 6"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================== Templates view =================== -->
+      <section id="viewTemplates" class="view">
+        <div class="surface" style="margin-top:8px">
+          <div class="surface-header">
+            <h2>VoiceAgents Templates</h2>
+          </div>
+          <div class="filters">
+            <div class="seg" id="catFilter">
+              <button class="active" data-cat="all">All</button>
+              <button data-cat="receptionist">Receptionist</button>
+              <button data-cat="support">Customer Support</button>
+              <button data-cat="outbound">Outbound</button>
+              <button data-cat="qualification">Lead Qualification</button>
+            </div>
+            <label class="search">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-quaternary)"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input id="searchInput" placeholder="Search" />
+            </label>
+          </div>
+
+          <div class="templates-body">
+            <div class="blank-card" onclick="openAgent('blank')">
+              <div class="ring"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+              <div><div class="title">Blank VoiceAgent</div><div class="sub">Build your own agent from scratch</div></div>
+            </div>
+
+            <div class="category" data-cat="receptionist">
+              <div class="category-label">Receptionist</div>
+              <div class="grid" id="grid-receptionist"></div>
+            </div>
+            <div class="category" data-cat="support">
+              <div class="category-label">Customer Support</div>
+              <div class="grid" id="grid-support"></div>
+            </div>
+            <div class="category" data-cat="outbound">
+              <div class="category-label">Outbound</div>
+              <div class="grid" id="grid-outbound"></div>
+            </div>
+            <div class="category" data-cat="qualification">
+              <div class="category-label">Lead Qualification</div>
+              <div class="grid" id="grid-qualification"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================== Editor view =================== -->
+      <section id="viewEditor" class="view">
+        <div class="editor-wrap">
+
+          <!-- Form / Advanced toggle -->
+          <div class="mode-toggle">
+            <div class="group" id="modeToggle">
+              <button class="active" data-mode="form">
+                <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></span>
+                Form
+              </button>
+              <button data-mode="advanced">
+                <span class="ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>
+                Advanced
+              </button>
+            </div>
+          </div>
+
+          <!-- Agent header card (shared) -->
+          <div class="agent-card">
+            <div class="av-box" id="agentAv">AI</div>
+            <div class="meta">
+              <div class="name-row">
+                <span class="name" id="agentName">Agent</span>
+                <span class="status-badge"><span class="dot"></span> Active</span>
+                <span class="flow-badge"><span class="dot"></span> <span id="flowCount">in 4 call workflows</span></span>
+              </div>
+              <div class="sub"><span id="agentRole">AI Receptionist</span> · <a href="#" onclick="return false">Open Analytics</a></div>
+            </div>
+            <div class="actions">
+              <button class="btn-secondary"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> Export Voice Agent</button>
+              <button class="btn-primary"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Test VoiceAgent</button>
+              <button class="btn-icon danger"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg></button>
+            </div>
+          </div>
+
+          <!-- ===== FORM MODE ===== -->
+          <div id="modeForm" class="mode-view active">
+
+            <div class="pending-banner" id="pendingBanner" hidden>
+              <span class="text">You have <strong id="pendingCount">3 unsaved changes</strong> in the <code>&lt;/&gt;</code> view. Save or discard them before editing here.</span>
+              <div class="actions">
+                <button class="btn-ghost" id="formDiscardBtn" style="height:30px">Discard</button>
+                <button class="btn-primary" id="formGoSaveBtn" style="height:30px;font-size:12px;padding:0 12px">Review &amp; save</button>
+              </div>
+            </div>
+
+            <!-- Personality -->
+            <div class="section">
+              <div class="section-head"><h3 class="section-title">Personality</h3></div>
+              <div class="field">
+                <label class="field-label">Name</label>
+                <input class="input" id="fldName" />
+              </div>
+              <div class="field">
+                <label class="field-label">Language</label>
+                <div class="tag-input" id="fldLang"></div>
+              </div>
+              <div class="field">
+                <label class="field-label">
+                  Voice
+                  <a class="link" href="#" onclick="return false">Explore more voices</a>
+                </label>
+                <div class="tag-input" id="fldVoice"></div>
+              </div>
+              <div class="field">
+                <label class="field-label">Greeting</label>
+                <textarea class="textarea" id="fldGreeting"></textarea>
+              </div>
+            </div>
+
+            <!-- Knowledge sources -->
+            <div class="section">
+              <div class="section-head">
+                <h3 class="section-title">Knowledge sources</h3>
+                <button class="btn-secondary"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Add files</button>
+              </div>
+              <div class="kb-banner">
+                <div class="l">Manage all sources in one place</div>
+                <a class="btn-link" href="#" onclick="return false">Open Knowledge Base</a>
+              </div>
+              <div class="kb-count" id="kbCount">4 documents uploaded — used by this agent to answer questions</div>
+              <div id="kbList"></div>
+            </div>
+
+            <!-- Skills -->
+            <div class="section">
+              <div class="section-head"><h3 class="section-title">Skills</h3></div>
+              <div id="skillsList"></div>
+            </div>
+
+            <!-- Scenarios -->
+            <div class="section">
+              <div class="section-head">
+                <h3 class="section-title">Scenarios</h3>
+                <button class="btn-secondary"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Add scenario</button>
+              </div>
+              <div id="scenariosList"></div>
+            </div>
+
+          </div>
+
+          <!-- ===== ADVANCED MODE ===== -->
+          <div id="modeAdvanced" class="mode-view">
+            <div class="advanced-welcome" id="advancedWelcome">
+              <div class="info-ico">i</div>
+              <div class="body">
+                <div class="ttl">Welcome to Advanced mode</div>
+                <div class="desc">Edit the configuration directly, or import one from another agent. If you delete something the agent needs to run, we'll automatically apply a safe default on save — so you can experiment without breaking your agent.</div>
+              </div>
+              <button class="close" id="dismissAdvancedNotice" aria-label="Dismiss">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
+            </div>
+            <div class="config-card">
+              <div class="config-head">
+                <div class="l">
+                  <span class="braces">{ }</span>
+                  <span class="title">Configuration</span>
+                  <span class="lines-count" id="cfgLines">0 lines</span>
+                </div>
+                <div class="r">
+                  <button class="btn-secondary" id="copyBtn" style="padding:6px 10px;height:30px;font-size:12px">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copy
+                  </button>
+                  <button class="btn-secondary" id="importBtn" style="padding:6px 10px;height:30px;font-size:12px">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Import
+                  </button>
+                  <button class="btn-secondary btn-demo" id="tryPasteBtn" style="padding:6px 10px;height:30px;font-size:12px" title="Simulate a wholesale paste">Try sample paste</button>
+                  <span class="action-divider"></span>
+                  <button class="btn-secondary" id="discardBtn" disabled style="padding:6px 10px;height:30px;font-size:12px">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>Revert
+                  </button>
+                  <button class="btn-primary btn-with-count" id="saveBtn" disabled style="padding:6px 14px;height:30px;font-size:12px">
+                    Save<span class="count" id="saveCount" hidden>0</span>
+                  </button>
+                </div>
+              </div>
+              <div class="paste-notice" id="pasteNotice" hidden role="status">
+                <span class="pn-icon" aria-hidden="true">!</span>
+                <span class="pn-text">This looks like a whole new configuration — touching <strong id="pasteNoticeCount">5 sections</strong>.</span>
+                <button class="pn-cta" id="pasteNoticeCta" type="button">See diffs</button>
+                <button class="pn-close" id="pasteNoticeDismiss" type="button" aria-label="Dismiss">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+              </div>
+              <div class="status-strip ok" id="statusStrip">
+                <span class="status-dot" id="statusDot">✓</span>
+                <span class="strip-text" id="statusText"><strong>No issues</strong></span>
+              </div>
+              <div class="repair-panel" id="repairPanel" hidden>
+                <div class="repair-list" id="repairList"></div>
+              </div>
+              <div class="editor">
+                <div class="editor-gutter" id="editorGutter">
+                  <div class="ginner" id="editorGutterInner"></div>
+                </div>
+                <div class="editor-pane">
+                  <pre class="editor-highlight" id="editorHighlight" aria-hidden="true"></pre>
+                  <textarea class="editor-input" id="editorInput" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<!-- ============================================================ Modals & Toast -->
+<div class="modal-backdrop" id="saveModal" hidden>
+  <div class="modal" role="dialog" aria-labelledby="saveModalTitle">
+    <div class="modal-header">
+      <div>
+        <h2 id="saveModalTitle">Save configuration changes</h2>
+        <p>Review the changes before committing. Saving creates a new version that affects live calls.</p>
+      </div>
+      <button id="closeSaveModal" class="icon-btn-sm" aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="validation-strip">
+        <span class="ok-dot">✓</span>
+        <span><strong>Valid</strong> — JSON conforms to voiceagent@1.4 schema. Final server-side checks will run on save.</span>
+      </div>
+      <p class="diff-meta"><strong id="saveDiffCount">0 field changes</strong> vs current saved version (<span id="fromVersion">v12</span> · 2 days ago)</p>
+      <div class="save-fallbacks" id="saveFallbacksNotice" hidden></div>
+      <div class="diff-list" id="saveDiffList">
+        <div class="diff-empty">No changes to apply</div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <span class="footer-info ok" id="saveFooterInfo">Ready to commit</span>
+      <div class="actions">
+        <button id="cancelSave" class="btn-secondary" style="height:30px;font-size:12px;padding:0 12px">Cancel</button>
+        <button id="confirmSave" class="btn-primary" style="height:30px;font-size:12px;padding:0 12px">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="importModal" hidden>
+  <div class="modal" role="dialog" aria-labelledby="importModalTitle">
+    <div class="modal-header">
+      <div>
+        <h2 id="importModalTitle">Import configuration</h2>
+        <p>Paste a JSON config to replace the current configuration. Changes will be reviewed before applying.</p>
+      </div>
+      <button id="closeImportModal" class="icon-btn-sm" aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div id="importStepPaste" class="modal-body">
+      <div class="pending-notice" id="pendingNotice" hidden>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:1px"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span>You have <strong id="pendingNoticeCount">3 unsaved edits</strong> that will be discarded if you apply an import.</span>
+      </div>
+      <div class="paste-editor">
+        <pre class="paste-highlight" id="importPasteHighlight" aria-hidden="true"></pre>
+        <textarea id="importPasteArea" class="paste-area" spellcheck="false" autocomplete="off" placeholder="Paste a configuration JSON from another agent or from a teammate."></textarea>
+      </div>
+      <div class="paste-hint">
+        <span id="pasteStatus">Empty — paste a configuration JSON to continue</span>
+        <button id="importPasteSample" class="link-btn">Paste sample →</button>
+      </div>
+    </div>
+    <div id="importStepDiff" class="modal-body" hidden>
+      <div class="validation-strip">
+        <span class="ok-dot">✓</span>
+        <span><strong>Valid</strong> — review the changes before applying.</span>
+      </div>
+      <p class="diff-meta"><strong id="importDiffCount">0 field changes</strong> vs current saved version (<span id="importFromVersion">v12</span>)</p>
+      <div class="diff-list" id="importDiffList"></div>
+    </div>
+    <div class="modal-footer">
+      <span class="footer-info" id="importFooterInfo">Empty</span>
+      <div class="actions">
+        <button id="importCancel" class="btn-secondary" style="height:30px;font-size:12px;padding:0 12px">Cancel</button>
+        <button id="importBack" class="btn-secondary" hidden style="height:30px;font-size:12px;padding:0 12px">Back</button>
+        <button id="importValidate" class="btn-primary" disabled style="height:30px;font-size:12px;padding:0 12px">Validate</button>
+        <button id="importApply" class="btn-primary" hidden style="height:30px;font-size:12px;padding:0 12px">Apply</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="discardModal" hidden>
+  <div class="modal" style="max-width:480px" role="dialog" aria-labelledby="discardModalTitle">
+    <div class="modal-header">
+      <div>
+        <h2 id="discardModalTitle">Discard unsaved changes?</h2>
+        <p id="discardModalMessage">You have unsaved changes in the JSON editor. Switching to Form will discard them.</p>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <span class="footer-info"></span>
+      <div class="actions">
+        <button id="discardKeep" class="btn-secondary" style="height:30px;font-size:12px;padding:0 12px">Keep editing</button>
+        <button id="discardApplyDefaults" class="btn-primary" hidden style="height:30px;font-size:12px;padding:0 12px">Apply defaults and switch</button>
+        <button id="discardConfirm" style="height:30px;font-size:12px;padding:0 12px;background:#d92d20;color:#fff;border:0;border-radius:8px;font-weight:500;cursor:pointer">Discard and switch</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast">
+  <span class="ok-dot">✓</span>
+  <span id="toastText">Configuration applied · v13</span>
+</div>
+
+<script src="app.js" defer></script>
+</body>
+</html>
