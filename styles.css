@@ -121,12 +121,12 @@
   .category{margin-top:28px}
   .category-label{font-size:12px;font-weight:500;color:var(--text-tertiary);letter-spacing:.5px;text-transform:uppercase;margin-bottom:12px}
   .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-  .tpl-card{background:#fff;border:1px solid var(--neutral-200);border-radius:var(--radius-lg);padding:14px;cursor:pointer;transition:border-color .15s, box-shadow .15s, transform .12s;min-height:172px;display:flex}
+  .tpl-card{background:#fff;border:1px solid var(--neutral-200);border-radius:var(--radius-lg);padding:14px;cursor:pointer;transition:border-color .15s, box-shadow .15s, transform .12s;height:188px;position:relative;overflow:hidden}
   .tpl-card:hover{border-color:var(--brand-500);box-shadow:0 0 0 3px var(--brand-25);transform:translateY(-1px)}
-  .tpl-card .tpl-default{display:flex;flex-direction:column;width:100%}
-  .tpl-card .tpl-preview{display:none;flex-direction:column;width:100%;gap:6px}
-  .tpl-card:hover .tpl-default{display:none}
-  .tpl-card:hover .tpl-preview{display:flex}
+  .tpl-card .tpl-default,.tpl-card .tpl-preview{position:absolute;top:14px;left:14px;right:14px;bottom:14px;display:flex;flex-direction:column;transition:opacity .18s ease}
+  .tpl-card .tpl-preview{opacity:0;pointer-events:none;gap:6px}
+  .tpl-card:hover .tpl-default{opacity:0;pointer-events:none}
+  .tpl-card:hover .tpl-preview{opacity:1;pointer-events:auto}
   .tpl-card .avatar-tpl{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;margin-bottom:12px}
   .tpl-card .avatar-tpl-sm{width:18px;height:18px;margin-bottom:0;flex:0 0 18px}
   .tpl-card .avatar-tpl-sm svg{width:11px;height:11px}
