@@ -3,84 +3,96 @@
    ============================================================ */
 const TEMPLATES = [
   // Receptionist
-  { id:'hotel', cat:'receptionist', name:'Hotel FrontDesk Agent',
+  { id:'hotel', cat:'receptionist', direction:'Inbound', name:'Hotel FrontDesk Agent',
     desc:'Provide 24/7 coverage for inquiries and bookings, reduce front-desk load, and enhance guest experience.',
     avatar:{ class:'av-green', icon:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 22V12h6v10"/></svg>` },
     role:'AI Receptionist · Hospitality', industry:'Hospitality',
     languages:['en-US','en-GB'], voices:['en-US:Hugo','en-GB:Hugo'],
-    greeting:"Good evening, thanks for calling [Hotel Name]. How can I help you tonight?" },
-  { id:'restaurant', cat:'receptionist', name:'Restaurant Receptionist',
+    greeting:"Good evening, thanks for calling [Hotel Name]. How can I help you tonight?",
+    preview:{ user:"Hi, do you have a room available this Friday?", reply:"Yes — for how many guests, and how many nights?" } },
+  { id:'restaurant', cat:'receptionist', direction:'Inbound', name:'Restaurant Receptionist',
     desc:'Automate reservation handling and reduce front-of-house call burden by managing reservations, FAQs, and pickup orders.',
     avatar:{ class:'av-blue', icon:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 2v7a3 3 0 0 0 3 3v10"/><path d="M9 2v7a3 3 0 0 1-3 3"/><path d="M18 2v20"/><path d="M14 2c0 4 4 6 4 6"/></svg>` },
     role:'AI Receptionist · Restaurants', industry:'Restaurants',
     languages:['en-US','it-IT'], voices:['en-US:Sofia','it-IT:Sofia'],
-    greeting:"Ciao! You've reached [Restaurant Name]. Would you like to book a table or check on an order?" },
-  { id:'healthcare', cat:'receptionist', name:'Healthcare Receptionist',
+    greeting:"Ciao! You've reached [Restaurant Name]. Would you like to book a table or check on an order?",
+    preview:{ user:"Can I book a table for two tonight?", reply:"Absolutely — what time works for you?" } },
+  { id:'healthcare', cat:'receptionist', direction:'Inbound', name:'Healthcare Receptionist',
     desc:'Medical facility front-desk: triage incoming patient calls and schedule appointments.',
     avatar:{ class:'av-shiraz', icon:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>` },
     role:'AI Receptionist · Healthcare', industry:'Healthcare',
     languages:['en-US','es-ES'], voices:['en-US:Maya','es-ES:Maya'],
-    greeting:"Hello, you've reached [Clinic Name]. Are you calling to book an appointment, or is this urgent?" },
+    greeting:"Hello, you've reached [Clinic Name]. Are you calling to book an appointment, or is this urgent?",
+    preview:{ user:"Hi, I need to reschedule my appointment for Thursday.", reply:"Of course — I see your appointment with Dr. Lee on Thursday at 2pm. What works better for you?" } },
 
   // Customer Support
-  { id:'tech-l1', cat:'support', name:'Tech L1 Support Agent',
+  { id:'tech-l1', cat:'support', direction:'Inbound', name:'Tech L1 Support Agent',
     desc:'Reduce burden on support teams; handle repetitive L1 tickets and route complex issues.',
     avatar:{ class:'av-ultra', icon:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>` },
     role:'L1 Support · SaaS', industry:'SaaS / Software',
     languages:['en-US','es-ES'], voices:['en-US:Tessa','es-ES:Tessa'],
-    greeting:"Hi! You've reached [Product] support. What can I help you with today?" },
-  { id:'order-status', cat:'support', name:'E-commerce Order Status Assistant',
+    greeting:"Hi! You've reached [Product] support. What can I help you with today?",
+    preview:{ user:"My dashboard isn't loading — it just spins.", reply:"Got it. Let's try a refresh first — are you on Chrome or Safari?" } },
+  { id:'order-status', cat:'support', direction:'Inbound', name:'E-commerce Order Status Assistant',
     desc:'Highest-volume e-commerce use case: confirm orders, track shipping, handle returns.',
     avatar:{ class:'av-yellow', icon:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><circle cx="8" cy="14" r="1"/></svg>` },
     role:'L1 Support · E-commerce', industry:'E-commerce',
     languages:['en-US','en-AU'], voices:['en-US:Olivia','en-AU:Olivia'],
-    greeting:"Hi! Looking for your order status? I can help — what's the order number?" },
-  { id:'finance-l1', cat:'support', name:'Finance L1 Support Agent',
+    greeting:"Hi! Looking for your order status? I can help — what's the order number?",
+    preview:{ user:"Where is my order #4521?", reply:"Shipped yesterday, arriving Friday. Want the tracking link via SMS?" } },
+  { id:'finance-l1', cat:'support', direction:'Inbound', name:'Finance L1 Support Agent',
     desc:'Pairs with the finance qualifier. Verifies caller, answers FAQs, escalates regulated issues.',
     avatar:{ class:'av-shiraz', icon:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>` },
     role:'L1 Support · FinTech', industry:'FinTech / FinServ',
     languages:['en-US','de-DE'], voices:['en-US:Felix','de-DE:Felix'],
-    greeting:"Hello, you've reached [Fintech] support. To get started I'll need to verify your identity — could you confirm your account email?" },
+    greeting:"Hello, you've reached [Fintech] support. To get started I'll need to verify your identity — could you confirm your account email?",
+    preview:{ user:"I see a charge I don't recognize on my account.", reply:"I can help. First, could you confirm the email on your account?" } },
 
   // Outbound
-  { id:'sales-offer', cat:'outbound', name:'Sales Offer Reminder',
+  { id:'sales-offer', cat:'outbound', direction:'Outbound', name:'Sales Offer Reminder',
     desc:'Drives conversion by reminding prospects of expiring offers with a clear next step.',
     avatar:{ class:'av-brand', icon:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>` },
     role:'Outbound Sales · SaaS', industry:'SaaS / Software',
     languages:['en-US'], voices:['en-US:Ryan'],
-    greeting:"Hi {{firstName}}, this is Ryan from [Brand]. Reaching out about the offer expiring this Friday — got a quick minute?" },
-  { id:'renewal', cat:'outbound', name:'Renewal Reminder',
+    greeting:"Hi {{firstName}}, this is Ryan from [Brand]. Reaching out about the offer expiring this Friday — got a quick minute?",
+    preview:{ user:"Yeah, what's this about?", reply:"Your 30%-off renewal window closes Friday. Got 90 seconds for the highlights?" } },
+  { id:'renewal', cat:'outbound', direction:'Outbound', name:'Renewal Reminder',
     desc:'Protects revenue by reminding customers ahead of renewal and answering blockers.',
     avatar:{ class:'av-green', icon:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"/><polyline points="1 20 1 14 7 14"/><path d="M20.49 15a9 9 0 0 1-14.85 3.36L1 14"/></svg>` },
     role:'Outbound Renewal · Insurance', industry:'Insurance',
     languages:['en-GB','fr-FR'], voices:['en-GB:Nora','fr-FR:Nora'],
-    greeting:"Hi {{firstName}}, this is Nora calling about your renewal coming up on {{date}} — got 30 seconds?" },
-  { id:'debt', cat:'outbound', name:'Debt Collection Reminder',
+    greeting:"Hi {{firstName}}, this is Nora calling about your renewal coming up on {{date}} — got 30 seconds?",
+    preview:{ user:"When's it renewing again?", reply:"Your plan renews on the 14th — want the e-signature link to lock it in?" } },
+  { id:'debt', cat:'outbound', direction:'Outbound', name:'Debt Collection Reminder',
     desc:'Polite, regulated outbound for overdue balances — empathetic and compliant.',
     avatar:{ class:'av-shiraz', icon:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>` },
     role:'Outbound Collections · FinTech', industry:'FinTech / FinServ',
     languages:['en-US'], voices:['en-US:Sam'],
-    greeting:"Hello, this is Sam from [Company]. I'm calling about invoice #{{invoice}}. Is now a good time to talk?" },
+    greeting:"Hello, this is Sam from [Company]. I'm calling about invoice #{{invoice}}. Is now a good time to talk?",
+    preview:{ user:"I need a bit more time.", reply:"Totally understand. I can offer three plan options — want me to run through them?" } },
 
   // Lead Qualification
-  { id:'sales-qual', cat:'qualification', name:'General Sales Pre-qualification',
+  { id:'sales-qual', cat:'qualification', direction:'Outbound', name:'General Sales Pre-qualification',
     desc:'Horizontal baseline: qualify inbound or form-fill leads with BANT-style questions.',
     avatar:{ class:'av-ultra', icon:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h11"/></svg>` },
     role:'SDR / Pre-qualifier · SaaS', industry:'SaaS / Software',
     languages:['en-US'], voices:['en-US:Maya'],
-    greeting:"Hi {{firstName}}, this is Maya from [Brand]. Saw you filled out a form on our site — can I ask a few quick questions?" },
-  { id:'finance-qual', cat:'qualification', name:'Finance Pre-qualification (Mortgage/Insurance)',
+    greeting:"Hi {{firstName}}, this is Maya from [Brand]. Saw you filled out a form on our site — can I ask a few quick questions?",
+    preview:{ user:"Can you tell me more about pricing?", reply:"Absolutely — we have three plans: Starter, Pro, and Enterprise. Want a quick rundown, or can I help you pick the best fit?" } },
+  { id:'finance-qual', cat:'qualification', direction:'Outbound', name:'Finance Pre-qualification (Mortgage/Insurance)',
     desc:'Vertical-tuned for financial-services lead screening: assets, intent, eligibility.',
     avatar:{ class:'av-green', icon:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>` },
     role:'Pre-qualifier · FinServ', industry:'FinTech / FinServ',
     languages:['en-US'], voices:['en-US:Eva'],
-    greeting:"Hi, this is Eva from [FinServ]. I can help you check if you pre-qualify — could you tell me what product you're exploring?" },
-  { id:'realestate', cat:'qualification', name:'Real Estate Qualification',
+    greeting:"Hi, this is Eva from [FinServ]. I can help you check if you pre-qualify — could you tell me what product you're exploring?",
+    preview:{ user:"I'm looking at a mortgage refinance.", reply:"Got it. To check eligibility I'll ask three quick questions — sound good?" } },
+  { id:'realestate', cat:'qualification', direction:'Outbound', name:'Real Estate Qualification',
     desc:'Qualifies property inquiries for agents and brokers — budget, timeline, area.',
     avatar:{ class:'av-yellow', icon:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 22V12h6v10"/></svg>` },
     role:'Inquiry Qualifier · Real Estate', industry:'Real Estate',
     languages:['en-US','de-DE'], voices:['en-US:Lukas','de-DE:Lukas'],
-    greeting:"Hi, this is Lukas from [Agency]. Are you looking to buy or rent, and what neighbourhood are you exploring?" },
+    greeting:"Hi, this is Lukas from [Agency]. Are you looking to buy or rent, and what neighbourhood are you exploring?",
+    preview:{ user:"I saw a listing on Hill St — still available?", reply:"Yes, still on the market. Open to a viewing this weekend?" } },
 ];
 
 const CAT_LABEL = { receptionist:'Receptionist', support:'Customer Support', outbound:'Outbound', qualification:'Lead Qualification' };
@@ -102,10 +114,17 @@ function renderCards(){
     const el = document.getElementById('grid-'+c);
     el.innerHTML = TEMPLATES.filter(t => t.cat === c).map(t => `
       <div class="tpl-card" onclick="openAgent('${t.id}')">
-        <div class="avatar-tpl ${t.avatar.class}">${t.avatar.icon}</div>
-        <div class="title">${t.name}</div>
-        <div class="desc">${t.desc}</div>
-        <div class="meta"><span class="chip">${CAT_LABEL[t.cat]}</span><span class="chip">${t.industry}</span></div>
+        <div class="tpl-default">
+          <div class="avatar-tpl ${t.avatar.class}">${t.avatar.icon}</div>
+          <div class="title">${t.name}</div>
+          <div class="desc">${t.desc}</div>
+          <div class="meta"><span class="chip chip-dir chip-dir-${t.direction.toLowerCase()}">${t.direction}</span><span class="chip">${t.industry}</span></div>
+        </div>
+        <div class="tpl-preview">
+          <div class="bubble bubble-user">${t.preview.user}</div>
+          <div class="bubble bubble-agent"><span class="avatar-tpl avatar-tpl-sm ${t.avatar.class}">${t.avatar.icon}</span><span class="bubble-text">${t.preview.reply}</span></div>
+          <div class="tpl-name-row"><span class="avatar-tpl avatar-tpl-sm ${t.avatar.class}">${t.avatar.icon}</span><span class="tpl-name">${t.name}</span></div>
+        </div>
       </div>`).join('');
   });
 }
