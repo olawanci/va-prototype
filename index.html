@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=3">
+<link rel="stylesheet" href="styles.css?v=4">
 </head>
 <body>
 <div class="app">
@@ -123,9 +123,15 @@
           </div>
 
           <div class="templates-body">
-            <div class="blank-card" onclick="openAgent('blank')">
-              <div class="ring"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-              <div><div class="title">Blank VoiceAgent</div><div class="sub">Build your own agent from scratch</div></div>
+            <div class="top-row">
+              <div class="blank-card" onclick="openAgent('blank')">
+                <div class="ring"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+                <div><div class="title">Blank VoiceAgent</div><div class="sub">Build your own agent from scratch</div></div>
+              </div>
+              <div class="recent-card" onclick="openAgent('blank')">
+                <div class="ring"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="23 4 23 10 17 10"/><path d="M20.49 9A9 9 0 1 1 14.36 3.5"/></svg></div>
+                <div><div class="title">Recently created</div><div class="sub">Ava</div></div>
+              </div>
             </div>
 
             <div class="category" data-cat="receptionist">
@@ -421,6 +427,6 @@
   <span id="toastText">Configuration applied · v13</span>
 </div>
 
-<script src="app.js?v=3" defer></script>
+<script src="app.js?v=4" defer></script>
 </body>
 </html>
