@@ -182,6 +182,7 @@ const ALL_SKILLS = [
   { id:'extract_data', name:'Extract Data',   desc:'Pull data from the conversation' },
   { id:'answer',       name:'Answer Questions', desc:'Based on attached knowledge base' },
   { id:'transfer',     name:'Transfer to Human', desc:'Routes caller to the right person at the right time' },
+  { id:'appointment_booking', name:'Appointment Booking', desc:'Schedule and manage calendar appointments during calls', isNew:true },
   { id:'custom',       name:'Custom',         desc:'Configure your own skill' },
 ];
 
@@ -315,9 +316,12 @@ function openAgent(id){
   const enabled = new Set(TEMPLATE_SKILLS[t.id] || []);
   document.getElementById('skillsList').innerHTML = ALL_SKILLS.map(s => {
     const on = enabled.has(s.id);
+    const badge = on
+      ? '<span class="badge-added">ADDED</span>'
+      : (s.isNew ? '<span class="badge-new"><span class="dot"></span>New</span>' : '');
     return `<div class="skill-row">
       <div class="l">
-        <div class="head"><span class="name">${s.name}</span>${on ? '<span class="badge-added">ADDED</span>' : ''}</div>
+        <div class="head"><span class="name">${s.name}</span>${badge}</div>
         <div class="desc">${s.desc}</div>
       </div>
       ${on
