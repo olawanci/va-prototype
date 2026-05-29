@@ -293,9 +293,9 @@ function openAgent(id){
   const extraVoices = Math.max(0, (t.voices ? t.voices.length : 1) - 1);
   document.getElementById('voiceMore').textContent = '+ ' + extraVoices + ' more';
 
-  // Knowledge sources
+  // Knowledge sources — never seeded by the system; customer must upload.
   const kbList = document.getElementById('kbList');
-  const kbDocs = id === 'blank' ? [] : DEFAULT_KB;
+  const kbDocs = [];
   kbList.innerHTML = kbDocs.length ? kbDocs.map(d => `
     <div class="kb-row">
       <div class="l">
