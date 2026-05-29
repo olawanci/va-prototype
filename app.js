@@ -263,23 +263,39 @@ function openAgent(id){
   // header
   setCrumb(t.name);
   document.getElementById('agentName').textContent = t.name;
-  document.getElementById('agentRole').textContent = t.role;
-  document.getElementById('flowCount').textContent = id === 'blank' ? 'not in any workflow yet' : `in ${1 + Math.floor(Math.random()*5)} call workflows`;
-  document.getElementById('agentAv').textContent = id === 'blank' ? '+' : 'AI';
+  document.getElementById('agentKind').textContent = id === 'blank' ? 'Blank' : 'Custom';
+  document.getElementById('agentId').textContent = 'va_' + String(t.id).slice(0, 6);
+  document.getElementById('flowCount').textContent = id === 'blank' ? 'not in any workflow yet' : `in ${1 + Math.floor(Math.random()*5)} call flows`;
+  // av-box icon already in markup — only override for the blank template
+  if (id === 'blank') {
+    document.getElementById('agentAv').innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>';
+  } else {
+    document.getElementById('agentAv').innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>';
+  }
+
+  // Call Direction
+  document.querySelectorAll('.direction-card').forEach(b => b.classList.remove('direction-card--active'));
+  const dirId = (t.direction === 'Outbound') ? 'dirOutbound' : 'dirInbound';
+  const dirEl = document.getElementById(dirId);
+  if (dirEl) dirEl.classList.add('direction-card--active');
 
   // form fields
   document.getElementById('fldName').value = t.name;
   document.getElementById('fldGreeting').value = t.greeting;
+  const fldGoal = document.getElementById('fldGoal'); if (fldGoal) fldGoal.value = '';
   renderTags('fldLang', t.languages);
-  renderTags('fldVoice', t.voices.map(v => v.split(':')[0]));
 
-  // KB
+  // Voice selector
+  const primaryVoice = (t.voices && t.voices[0] ? t.voices[0] : 'en-US:Jessica').split(':');
+  document.getElementById('voiceName').textContent = primaryVoice[1] || 'Jessica';
+  document.getElementById('voiceFlag').textContent = (primaryVoice[0] || 'en').split('-')[0].toUpperCase();
+  const extraVoices = Math.max(0, (t.voices ? t.voices.length : 1) - 1);
+  document.getElementById('voiceMore').textContent = '+ ' + extraVoices + ' more';
+
+  // Knowledge sources
   const kbList = document.getElementById('kbList');
   const kbDocs = id === 'blank' ? [] : DEFAULT_KB;
-  document.getElementById('kbCount').textContent = kbDocs.length
-    ? `${kbDocs.length} documents uploaded — used by this agent to answer questions`
-    : 'No documents uploaded yet';
-  kbList.innerHTML = kbDocs.map(d => `
+  kbList.innerHTML = kbDocs.length ? kbDocs.map(d => `
     <div class="kb-row">
       <div class="l">
         <div class="pdficon"></div>
@@ -289,7 +305,11 @@ function openAgent(id){
         </div>
       </div>
       <button class="btn-link">Unlink from Agent</button>
-    </div>`).join('');
+    </div>`).join('') : `
+    <div class="knowledge-empty">
+      <h3>No knowledge added yet</h3>
+      <p>Add a new source or pick from your knowledge base so your agent knows how to answer questions.</p>
+    </div>`;
 
   // Skills
   const enabled = new Set(TEMPLATE_SKILLS[t.id] || []);

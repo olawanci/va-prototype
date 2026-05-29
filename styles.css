@@ -463,3 +463,72 @@
   .toast .ok-dot{width:14px;height:14px;border-radius:999px;background:var(--success-500);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:9px}
 
   [hidden]{display:none !important}
+
+  /* ============================================================
+     CloudTalk edit page — visual port (Behavior + Skills lib spec)
+     ============================================================ */
+
+  /* Topbar — dark phone button */
+  .phone-btn{width:36px;height:36px;border-radius:50%;background:var(--neutral-900);color:#fff;border:0;display:grid;place-items:center;cursor:pointer;flex-shrink:0;transition:background .12s}
+  .phone-btn:hover{background:var(--neutral-800)}
+  .phone-btn:active{background:var(--neutral-700)}
+  .phone-btn:focus-visible{outline:2px solid var(--brand-500);outline-offset:2px}
+
+  /* Agent header — brand avatar + ID chip + meta separator */
+  .av-box.av-box--brand{background:var(--brand-500);color:#fff}
+  .av-box.av-box--brand svg{width:22px;height:22px}
+  .id-chip{display:inline-flex;align-items:center;gap:4px;font-size:12px;color:var(--text-tertiary);font-family:"Roboto Mono",ui-monospace,monospace;letter-spacing:.1px}
+  .btn-icon-ghost{background:transparent;border:0;padding:2px;width:22px;height:22px;display:grid;place-items:center;border-radius:4px;color:var(--text-quaternary);cursor:pointer}
+  .btn-icon-ghost:hover{background:var(--gc-100);color:var(--text-secondary)}
+  .dot-sep{color:var(--text-quaternary);font-size:13px;margin:0 2px}
+  .agent-card .actions .btn-primary{background:var(--neutral-900);border-color:var(--neutral-900)}
+  .agent-card .actions .btn-primary:hover{background:var(--neutral-800);border-color:var(--neutral-800)}
+
+  /* Call Direction grid */
+  .direction-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px}
+  .direction-card{display:flex;align-items:center;gap:12px;padding:12px 14px;background:#fff;border:1.5px solid var(--border-soft);border-radius:var(--radius-md);text-align:left;cursor:pointer;transition:border-color .12s, box-shadow .12s;font:inherit;color:inherit}
+  .direction-card:hover{border-color:var(--gc-300)}
+  .direction-card--active{border-color:var(--brand-500);box-shadow:0 0 0 3px var(--brand-25)}
+  .direction-card .icon-tile{width:32px;height:32px;border-radius:var(--radius-sm);background:var(--gc-50);color:var(--text-secondary);display:grid;place-items:center;flex-shrink:0;border:1px solid var(--border-soft)}
+  .direction-card--active .icon-tile{background:var(--brand-25);color:var(--brand-500);border-color:transparent}
+  .direction-card-title{display:block;font-size:14px;font-weight:500;color:var(--text-primary);line-height:18px}
+  .direction-card-subtitle{display:block;font-size:12px;color:var(--text-tertiary);margin-top:2px}
+
+  /* Voice selector row */
+  .voice-selector{display:flex;align-items:center;gap:10px;padding:8px 12px;border:1px solid var(--border-soft);border-radius:var(--radius-md);background:#fff;box-shadow:var(--shadow-xs)}
+  .voice-name{font-size:14px;font-weight:500;color:var(--text-primary);flex-shrink:0}
+  .voice-pills{display:flex;align-items:center;gap:6px;flex-wrap:wrap;flex:1}
+  .voice-selector .pill{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:var(--radius-pill);background:var(--gc-50);border:1px solid var(--gc-200);font-size:11px;font-weight:500;color:var(--text-secondary);cursor:default}
+  .voice-selector button.pill{cursor:pointer;border:1px solid var(--gc-200)}
+  .voice-selector .pill--muted{color:var(--text-quaternary);background:transparent;border-color:transparent}
+  .voice-selector .pill svg{width:10px;height:10px}
+  .voice-edit{margin-left:auto;background:transparent;border:0;width:28px;height:28px;display:grid;place-items:center;border-radius:6px;color:var(--text-quaternary);cursor:pointer;flex-shrink:0}
+  .voice-edit:hover{background:var(--gc-100);color:var(--text-secondary)}
+
+  /* Field hints */
+  .field-hint{font-size:12px;color:var(--text-tertiary);margin:4px 0 8px;line-height:16px}
+
+  /* Knowledge — split combo button + empty state */
+  .combo-button{display:inline-flex;align-items:stretch;border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-xs)}
+  .combo-button-primary, .combo-button-caret{background:var(--brand-500);color:#fff;border:0;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:14px;font-weight:500;cursor:pointer;transition:background .12s}
+  .combo-button-primary{padding:9px 14px;border-top-left-radius:var(--radius-md);border-bottom-left-radius:var(--radius-md)}
+  .combo-button-caret{padding:9px 10px;border-top-right-radius:var(--radius-md);border-bottom-right-radius:var(--radius-md)}
+  .combo-button-primary:hover, .combo-button-caret:hover{background:var(--brand-600)}
+  .combo-button-divider{width:1px;background:rgba(255,255,255,.25)}
+  .knowledge-empty{background:var(--gc-50);border:1px solid var(--gc-200);border-radius:var(--radius-md);padding:32px 24px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:8px}
+  .knowledge-empty h3{margin:0;font-size:15px;font-weight:600;color:var(--text-primary)}
+  .knowledge-empty p{margin:0;font-size:13px;color:var(--text-tertiary);max-width:480px;line-height:18px}
+
+  /* Sticky bottom edit bar */
+  .agents-edit-bar{position:fixed;left:232px;right:32px;bottom:16px;background:var(--gc-900);color:#fff;border-radius:var(--radius-md);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:16px;z-index:20;box-shadow:0 8px 24px rgba(15,23,42,.18);animation:editBarIn .18s ease-out}
+  .agents-edit-bar[hidden]{display:none}
+  .edit-bar-message{display:flex;align-items:center;gap:6px;font-size:13px}
+  .edit-bar-label{color:#fff}
+  .edit-bar-section-name{color:#facc15;font-weight:500}
+  .edit-bar-buttons{display:flex;align-items:center;gap:8px}
+  .agents-edit-bar .button{border-radius:6px;font-size:13px;font-weight:500;padding:7px 14px;cursor:pointer}
+  .agents-edit-bar .button-outlined{background:transparent;border:1px solid rgba(255,255,255,.35);color:#fff}
+  .agents-edit-bar .button-outlined:hover{background:rgba(255,255,255,.08)}
+  .agents-edit-bar .button-primary{background:var(--brand-500);border:0;color:#fff}
+  .agents-edit-bar .button-primary:hover{background:var(--brand-600)}
+  @keyframes editBarIn{from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)}}
