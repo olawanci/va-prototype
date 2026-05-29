@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=4">
+<link rel="stylesheet" href="styles.css?v=5">
 </head>
 <body>
 <div class="app">
@@ -110,45 +110,18 @@
           </div>
           <div class="filters">
             <div class="seg" id="catFilter">
-              <button class="active" data-cat="all">All</button>
-              <button data-cat="receptionist">Receptionist</button>
-              <button data-cat="support">Customer Support</button>
-              <button data-cat="outbound">Outbound</button>
-              <button data-cat="qualification">Lead Qualification</button>
+              <!-- Populated by buildIndustriesUI() in app.js -->
             </div>
-            <label class="search">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-quaternary)"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-              <input id="searchInput" placeholder="Search" />
-            </label>
           </div>
 
           <div class="templates-body">
-            <div class="top-row">
-              <div class="blank-card" onclick="openAgent('blank')">
-                <div class="ring"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
-                <div><div class="title">Blank VoiceAgent</div><div class="sub">Build your own agent from scratch</div></div>
-              </div>
-              <div class="recent-card" onclick="openAgent('blank')">
-                <div class="ring"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="23 4 23 10 17 10"/><path d="M20.49 9A9 9 0 1 1 14.36 3.5"/></svg></div>
-                <div><div class="title">Recently created</div><div class="sub">Ava</div></div>
-              </div>
+            <div class="blank-card" onclick="openAgent('blank')">
+              <div class="ring"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+              <div><div class="title">Blank VoiceAgent</div><div class="sub">Build your own agent from scratch</div></div>
             </div>
 
-            <div class="category" data-cat="receptionist">
-              <div class="category-label">Receptionist</div>
-              <div class="grid" id="grid-receptionist"></div>
-            </div>
-            <div class="category" data-cat="support">
-              <div class="category-label">Customer Support</div>
-              <div class="grid" id="grid-support"></div>
-            </div>
-            <div class="category" data-cat="outbound">
-              <div class="category-label">Outbound</div>
-              <div class="grid" id="grid-outbound"></div>
-            </div>
-            <div class="category" data-cat="qualification">
-              <div class="category-label">Lead Qualification</div>
-              <div class="grid" id="grid-qualification"></div>
+            <div id="categoriesContainer">
+              <!-- Populated by buildIndustriesUI() in app.js — one .category per industry -->
             </div>
           </div>
         </div>
@@ -427,6 +400,6 @@
   <span id="toastText">Configuration applied · v13</span>
 </div>
 
-<script src="app.js?v=4" defer></script>
+<script src="app.js?v=5" defer></script>
 </body>
 </html>

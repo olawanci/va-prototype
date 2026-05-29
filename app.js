@@ -13,17 +13,17 @@ const TEMPLATES = [
   { id:'restaurant', cat:'receptionist', direction:'Inbound', name:'Restaurant Receptionist',
     desc:'Automate reservation handling and reduce front-of-house call burden by managing reservations, FAQs, and pickup orders.',
     avatar:{ class:'av-blue', icon:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 2v7a3 3 0 0 0 3 3v10"/><path d="M9 2v7a3 3 0 0 1-3 3"/><path d="M18 2v20"/><path d="M14 2c0 4 4 6 4 6"/></svg>` },
-    role:'AI Receptionist · Restaurants', industry:'Restaurants',
+    role:'AI Receptionist · Restaurants', industry:'Hospitality',
     languages:['en-US','it-IT'], voices:['en-US:Sofia','it-IT:Sofia'],
     greeting:"Ciao! You've reached [Restaurant Name]. Would you like to book a table or check on an order?",
     preview:{ user:"Can I book a table for two tonight?", reply:"Absolutely — what time works for you?" } },
-  { id:'healthcare', cat:'receptionist', direction:'Inbound', name:'Healthcare Receptionist',
-    desc:'Medical facility front-desk: triage incoming patient calls and schedule appointments.',
+  { id:'healthcare', cat:'receptionist', direction:'Inbound', name:'During-Hours AI Receptionist',
+    desc:'Smarter IVR for inbound calls during business hours — understands intent, answers FAQs from your knowledge base, and routes to the right team.',
     avatar:{ class:'av-shiraz', icon:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>` },
     role:'AI Receptionist · Healthcare', industry:'Healthcare',
     languages:['en-US','es-ES'], voices:['en-US:Maya','es-ES:Maya'],
-    greeting:"Hello, you've reached [Clinic Name]. Are you calling to book an appointment, or is this urgent?",
-    preview:{ user:"Hi, I need to reschedule my appointment for Thursday.", reply:"Of course — I see your appointment with Dr. Lee on Thursday at 2pm. What works better for you?" } },
+    greeting:"Hey there, thanks for calling [Clinic Name]! I'm Aria, your AI assistant. Quick note — many things are faster through our patient portal at [website]. Otherwise, just tell me what's on your mind.",
+    preview:{ user:"Hi, I need to reschedule my appointment for Thursday.", reply:"Got it — I can help with that. Let me pull up your appointment and find a new slot." } },
 
   // Customer Support
   { id:'tech-l1', cat:'support', direction:'Inbound', name:'Tech L1 Support Agent',
@@ -107,42 +107,65 @@ const LANG_LABEL = {
 };
 
 /* ============================================================
-   Render templates grid
+   Render templates grid — grouped by industry
    ============================================================ */
-function renderCards(){
-  ['receptionist','support','outbound','qualification'].forEach(c => {
-    const el = document.getElementById('grid-'+c);
-    el.innerHTML = TEMPLATES.filter(t => t.cat === c).map(t => `
-      <div class="tpl-card" onclick="openAgent('${t.id}')">
-        <div class="tpl-default">
-          <div class="avatar-tpl ${t.avatar.class}">${t.avatar.icon}</div>
-          <div class="title">${t.name}</div>
-          <div class="desc">${t.desc}</div>
-          <div class="meta"><span class="chip chip-dir chip-dir-${t.direction.toLowerCase()}">${t.direction}</span><span class="chip">${t.industry}</span></div>
-        </div>
-        <div class="tpl-preview">
-          <div class="bubble bubble-user">${t.preview.user}</div>
-          <div class="bubble bubble-agent"><span class="avatar-tpl avatar-tpl-sm ${t.avatar.class}">${t.avatar.icon}</span><span class="bubble-text">${t.preview.reply}</span></div>
-          <div class="tpl-name-row"><span class="avatar-tpl avatar-tpl-sm ${t.avatar.class}">${t.avatar.icon}</span><span class="tpl-name">${t.name}</span></div>
-        </div>
-      </div>`).join('');
-  });
+function industrySlug(s) {
+  return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 }
-renderCards();
 
-/* Filter / search */
-document.querySelectorAll('#catFilter button').forEach(b => b.addEventListener('click', () => {
-  document.querySelectorAll('#catFilter button').forEach(x => x.classList.remove('active'));
-  b.classList.add('active');
-  const c = b.dataset.cat;
-  document.querySelectorAll('.category').forEach(cat => cat.style.display = (c === 'all' || cat.dataset.cat === c) ? '' : 'none');
-}));
-document.getElementById('searchInput').addEventListener('input', e => {
-  const q = e.target.value.toLowerCase().trim();
-  document.querySelectorAll('.tpl-card').forEach(card => {
-    card.style.display = (!q || card.textContent.toLowerCase().includes(q)) ? '' : 'none';
+function cardHTML(t) {
+  return `
+    <div class="tpl-card" onclick="openAgent('${t.id}')">
+      <div class="tpl-default">
+        <div class="avatar-tpl ${t.avatar.class}">${t.avatar.icon}</div>
+        <div class="title">${t.name}</div>
+        <div class="desc">${t.desc}</div>
+        <div class="meta"><span class="chip chip-dir chip-dir-${t.direction.toLowerCase()}">${t.direction}</span><span class="chip">${t.industry}</span></div>
+      </div>
+      <div class="tpl-preview">
+        <div class="bubble bubble-user">${t.preview.user}</div>
+        <div class="bubble bubble-agent"><span class="avatar-tpl avatar-tpl-sm ${t.avatar.class}">${t.avatar.icon}</span><span class="bubble-text">${t.preview.reply}</span></div>
+        <div class="tpl-name-row"><span class="avatar-tpl avatar-tpl-sm ${t.avatar.class}">${t.avatar.icon}</span><span class="tpl-name">${t.name}</span></div>
+      </div>
+    </div>`;
+}
+
+function buildIndustriesUI() {
+  // Group templates by industry, preserving first-seen order from TEMPLATES.
+  const industriesOrder = [];
+  const byIndustry = {};
+  TEMPLATES.forEach(t => {
+    if (!byIndustry[t.industry]) { byIndustry[t.industry] = []; industriesOrder.push(t.industry); }
+    byIndustry[t.industry].push(t);
   });
-});
+
+  // Filter pills (All + one per industry).
+  const filterEl = document.getElementById('catFilter');
+  filterEl.innerHTML = `<button class="active" data-cat="all">All</button>` +
+    industriesOrder.map(ind => `<button data-cat="${industrySlug(ind)}">${ind}</button>`).join('');
+
+  // One .category section per industry.
+  const container = document.getElementById('categoriesContainer');
+  container.innerHTML = industriesOrder.map(ind => {
+    const slug = industrySlug(ind);
+    return `
+      <div class="category" data-cat="${slug}">
+        <div class="category-label">${ind}</div>
+        <div class="grid">${byIndustry[ind].map(cardHTML).join('')}</div>
+      </div>`;
+  }).join('');
+
+  // Wire filter pill clicks.
+  document.querySelectorAll('#catFilter button').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('#catFilter button').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    const c = b.dataset.cat;
+    document.querySelectorAll('.category').forEach(cat => {
+      cat.style.display = (c === 'all' || cat.dataset.cat === c) ? '' : 'none';
+    });
+  }));
+}
+buildIndustriesUI();
 
 /* ============================================================
    Skills & Scenarios defaults (per template)
@@ -166,7 +189,7 @@ const ALL_SKILLS = [
 const TEMPLATE_SKILLS = {
   hotel:        ['take_message','answer','transfer'],
   restaurant:   ['take_message','extract_data','transfer'],
-  healthcare:   ['take_message','answer','transfer'],
+  healthcare:   ['answer','transfer','extract_data','take_message'],
   'tech-l1':    ['take_message','extract_data','answer','transfer'],
   'order-status':['extract_data','answer'],
   'finance-l1': ['answer','transfer'],
@@ -187,8 +210,11 @@ const TEMPLATE_SCENARIOS = {
     { when:'Caller wants to reserve a table', reply:'"Sure — for how many people, and what time?"', action:'Book reservation' },
   ],
   healthcare: [
-    { when:'Caller describes emergency symptoms', reply:"\"Transferring you to a nurse right away.\"", action:'Transfer call' },
-    { when:'Caller asks for appointment booking', reply:'"I can find a slot — what day works best?"', action:'Book appointment' },
+    { when:'Caller says goodbye or has no more questions', reply:'"You\'re welcome! Have a great rest of your day. Goodbye!"', action:'Hangup' },
+    { when:'Caller idle for 15+ seconds', reply:'"I haven\'t heard anything — are you still there? Feel free to call back anytime."', action:'Hangup' },
+    { when:'Caller asks to speak to a human', reply:'"Of course — let me connect you with the team now."', action:'Transfer call' },
+    { when:'Topic is outside the Knowledge Base', reply:'"That\'s a bit outside what I can help with. Let me connect you with the team."', action:'Transfer call' },
+    { when:'Caller asks if they\'re speaking to a human', reply:'"I\'m an AI assistant for [Clinic Name]. How can I help?"', action:'Response only' },
   ],
   'tech-l1': [
     { when:'Caller asks for booking link', reply:'"Let me send that to you via SMS."', action:'Send sms' },
